@@ -8,12 +8,12 @@
  *
  * @author M_Khuzaima
  */
-public class DeleteItem extends javax.swing.JFrame {
+public class RequestItem extends javax.swing.JFrame {
 
     /**
-     * Creates new form DeleteItem
+     * Creates new form RequestItem
      */
-    public DeleteItem() {
+    public RequestItem() {
         initComponents();
     }
 
@@ -43,11 +43,11 @@ public class DeleteItem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
-        jLabel2.setText("Delete Item");
+        jLabel2.setText("Request Item");
 
         jLabel3.setText("Item Name");
 
-        jButton1.setText("Delete");
+        jButton1.setText("Request");
 
         jButton2.setText("Back");
 
@@ -59,8 +59,6 @@ public class DeleteItem extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Quantity");
-
-        jTextField2.setEditable(false);
 
         jLabel7.setText("Consumable");
 
@@ -176,20 +174,20 @@ public class DeleteItem extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RequestItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RequestItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RequestItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RequestItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteItem().setVisible(true);
+                new RequestItem().setVisible(true);
             }
         });
     }

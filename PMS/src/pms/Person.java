@@ -17,7 +17,7 @@ public class Person {
     private String email;
     private String address;
     private String password;
-    private String id = "";
+    private String id = null;
     private String cnic;
     private String gender;
     private Date joiningDate;
@@ -149,7 +149,7 @@ public class Person {
         for (int i = 0; i < size; i++) {
             char ch = address.charAt(i);
             if (!(Character.isLetterOrDigit(ch) || ch == '#' || ch == '-' ||
-                    ch == ' ' || ch == ',' || ch == '.' )) {
+                    ch == ' ' || ch == ',' || ch == '.' || ch == '\n')) {
                 return false;
             }
         }
@@ -187,6 +187,11 @@ public class Person {
                 return false;
             }
         }
+        
+        int lastDigit = Integer.parseInt(String.valueOf(cnic.charAt(12)));
+
+        this.gender = (lastDigit % 2 == 0) ? "Female" : "Male";
+        
         
         this.cnic = cnic;
         return true;

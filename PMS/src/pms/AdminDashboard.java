@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author M_Khuzaima
@@ -15,7 +18,16 @@ public class AdminDashboard extends javax.swing.JFrame {
      */
     public AdminDashboard() {
         initComponents();
-        
+        fillPersonalInfo();
+    }
+    
+    private void fillPersonalInfo () {
+        Administrator admin = Driver.getInstance().getAdministrator();
+        nameField.setText(admin.getName());
+        cnicField.setText(admin.getCnic());
+        emailField.setText(admin.getEmail());
+        contactNumberField.setText(admin.getContactNumber());
+        addressArea.setText(admin.getAddress());
     }
 
     /**
@@ -53,7 +65,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         edit = new javax.swing.JButton();
         nameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        idField = new javax.swing.JTextField();
+        cnicField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         contactNumberField = new javax.swing.JTextField();
@@ -89,6 +101,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Edit Manager");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(51, 51, 51));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
@@ -236,6 +253,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jButton13.setBackground(new java.awt.Color(51, 51, 51));
         jButton13.setForeground(new java.awt.Color(255, 255, 255));
         jButton13.setText("Add Item");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jDesktopPane3.setLayer(jButton10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane3.setLayer(jButton11, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -288,9 +310,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         edit.setBackground(new java.awt.Color(51, 51, 51));
         edit.setForeground(new java.awt.Color(255, 255, 255));
         edit.setText("Edit info");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ID");
+        jLabel2.setText("CNIC");
 
         emailField.setText("abc@xyz.com");
 
@@ -308,7 +335,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jDesktopPane4.setLayer(edit, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(nameField, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane4.setLayer(idField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane4.setLayer(cnicField, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(emailField, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(contactNumberField, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -334,13 +361,13 @@ public class AdminDashboard extends javax.swing.JFrame {
                                 .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane4Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(9, 9, 9)))
-                        .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(contactNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)))
+                        .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(contactNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                            .addComponent(cnicField)))
                     .addGroup(jDesktopPane4Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -359,7 +386,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cnicField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -481,6 +508,41 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ManagerCaretPositionChanged
 
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        // TODO add your handling code here:
+        
+        boolean flag = false;
+        
+        Administrator admin = Driver.getInstance().getAdministrator();
+        admin.setName(nameField.getText());
+        admin.setCnic(cnicField.getText());
+        admin.setEmail(emailField.getText());
+        admin.setContactNumber(contactNumberField.getText());
+        admin.setAddress(addressArea.getText());
+        
+        if (!flag) {
+            JOptionPane.showMessageDialog(this, "Edited Successfully", "Edited", -1);
+//            int x = JOptionPane.showConfirmDialog(this, "Do you want to edit?", "Are you sure?", JOptionPane.CANCEL_OPTION);
+//            System.out.println(x);
+        }
+        
+        fillPersonalInfo();
+    }//GEN-LAST:event_editActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        AddItem frame = new AddItem();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        EditManager frame = new EditManager();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -517,13 +579,13 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane Manager;
+    public javax.swing.JTabbedPane Manager;
     private javax.swing.JTextArea addressArea;
+    private javax.swing.JTextField cnicField;
     private javax.swing.JTextField contactNumberField;
     private javax.swing.JButton edit;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel heading;
-    private javax.swing.JTextField idField;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;

@@ -262,12 +262,12 @@ public class AddManager extends javax.swing.JFrame {
         if (flag) {
             mn.setGender(male.isSelected()?"Male" : "Female");
             Driver.getInstance().addManager(mn);
-            JOptionPane.showMessageDialog(null, "Manager has been added Successfully!");
+            JOptionPane.showMessageDialog(this, "Manager has been added Successfully!");
 
             backActionPerformed(evt);
         }
         else {
-            JOptionPane.showMessageDialog(null, "Data Invalid");
+            JOptionPane.showMessageDialog(this, "Data Invalid");
         }
 //       System.out.println(mn.getName() + mn.getCnic());
     }//GEN-LAST:event_addActionPerformed

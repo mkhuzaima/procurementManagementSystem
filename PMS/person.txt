@@ -1,0 +1,2 @@
+employee;EMP-1;03007654321;employee@pms.com;3512345678901;house
+manager;MAN-1;03001234567;mkhuziamajlkfj@gj.com;1234567890123;house#1

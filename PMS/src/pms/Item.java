@@ -24,8 +24,11 @@ class Item {
         number++;
         id = "ITM-" + number;
     }
-    
 
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }
@@ -38,7 +41,7 @@ class Item {
         
         for (int i = 0; i < size; i++) {
             char ch = name.charAt(i);
-            if(!((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')
+            if(!(Character.isLetterOrDigit(ch)
                     || ch == ' ' || ch == '-' || ch == '\'')) {
                 return false;
             }

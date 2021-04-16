@@ -27,7 +27,7 @@ public class Driver {
         BufferedReader br;
         
         try {
-            fr = new FileReader("employee.txt");
+            fr = new FileReader("person.txt");
             br = new BufferedReader(fr);
             
             String line = br.readLine();
@@ -35,14 +35,28 @@ public class Driver {
                 
                 String [] arr = line.split(";");
                 if (arr.length == 6) {
-                    Employee employee = new Employee();
-                    employee.setName(arr[0]);
-                    employee.setId(arr[1]);
-                    employee.setContactNumber(arr[2]);
-                    employee.setEmail(arr[3]);
-                    employee.setCnic(arr[4]);
-                    employee.setAddress(arr[5]);
-                    Driver.getInstance().addEmployee(employee);
+                    Person person;
+                    if (arr[1].startsWith("EMP")) {
+                        Employee employee = new Employee();
+                        employee.setName(arr[0]);
+                        employee.setId(arr[1]);
+                        employee.setContactNumber(arr[2]);
+                        employee.setEmail(arr[3]);
+                        employee.setCnic(arr[4]);
+                        employee.setAddress(arr[5]);
+                        Driver.getInstance().addEmployee(employee);
+                    }
+                    else {
+                        Manager manager = new Manager();
+                        manager.setName(arr[0]);
+                        manager.setId(arr[1]);
+                        manager.setContactNumber(arr[2]);
+                        manager.setEmail(arr[3]);
+                        manager.setCnic(arr[4]);
+                        manager.setAddress(arr[5]);
+                        Driver.getInstance().addManager(manager);
+                    }
+                    
                 }
                 
                 line = br.readLine();
@@ -52,14 +66,43 @@ public class Driver {
             fr.close();
         
         } catch (Exception e) {
-            System.out.println("Failed to load employee Data");
+            System.out.println("Failed to load Employee/Manager Data");
+        }
+        
+        try {
+            fr = new FileReader("items.txt");
+            br = new BufferedReader(fr);
+            
+            String line = br.readLine();
+            while (line != null) {
+                
+                String [] arr = line.split(";");
+                if (arr.length == 4) {
+                    Item item = new Item();
+                    item.setId(arr[0]);
+                    item.setName(arr[1]);
+                    item.setQuantity(arr[2]);
+                    item.setConsumable(arr[3] == "true");
+                    Driver.getInstance().addItem(item);
+                }
+                
+                
+                line = br.readLine();
+            }
+            br.close();
+            fr.close();
+            
+        } catch (Exception ex) {
+            System.out.println("Failed to load data of the items.");
+//            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         LoginForm frame = new LoginForm();
         frame.setVisible(true);
     }
-
     
+    private Administrator administrator;
+
     private ArrayList<Manager> managers;
     private ArrayList<Employee> employees;
     private ArrayList<Item> items;
@@ -68,10 +111,22 @@ public class Driver {
         managers = new ArrayList<>();
         employees = new ArrayList<>();
         items = new ArrayList<>();
+        administrator = new Administrator();
     }
     
     private static Driver instance;
 
+    public static Driver getInstance() {
+        
+        if(instance == null) {
+            instance = new Driver();
+            return instance;
+        }
+        
+        return instance;
+    }
+    
+    
     public ArrayList<Manager> getManagers() {
         return managers;
     }
@@ -88,14 +143,8 @@ public class Driver {
         this.managers.add(manager);
     }
 
-    public static Driver getInstance() {
-        
-        if(instance == null) {
-            instance = new Driver();
-            return instance;
-        }
-        
-        return instance;
+    public Administrator getAdministrator() {
+        return administrator;
     }
 
     public ArrayList<Employee> getEmployees() {
@@ -124,7 +173,9 @@ public class Driver {
     }
     
     public void addItem(Item item) {
-        item.setId();
+        if (item.getId() == null) {
+            item.setId();
+        }
         this.items.add(item);
     }
     

@@ -151,6 +151,7 @@ public class ViewEmployee extends javax.swing.JFrame {
         AdminDashboard frame = new AdminDashboard();
         frame.setVisible(true);
         this.dispose();
+        frame.Manager.setSelectedIndex(1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

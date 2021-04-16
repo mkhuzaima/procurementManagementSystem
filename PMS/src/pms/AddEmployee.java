@@ -246,11 +246,11 @@ public class AddEmployee extends javax.swing.JFrame {
         if (flag) {
             employee.setGender(male.isSelected()?"Male" : "Female");
             Driver.getInstance().addEmployee(employee);
-            JOptionPane.showMessageDialog(null, "Employee has been added Successfully!");
+            JOptionPane.showMessageDialog(this, "Employee has been added Successfully!");
             backBtnActionPerformed(evt);
         }
         else {
-            JOptionPane.showMessageDialog(null, "Data Invalid");
+            JOptionPane.showMessageDialog(this, "Data Invalid");
         }
 //       System.out.println(person.getName() + person.getCnic());
     }//GEN-LAST:event_addBtnActionPerformed
@@ -260,6 +260,7 @@ public class AddEmployee extends javax.swing.JFrame {
         this.dispose();
         AdminDashboard frame = new AdminDashboard();
         frame.setVisible(true);
+        frame.Manager.setSelectedIndex(1);
     }//GEN-LAST:event_backBtnActionPerformed
 
     /**

@@ -162,6 +162,7 @@ public class AddItem extends javax.swing.JFrame {
         this.dispose();
         AdminDashboard frame = new AdminDashboard();
         frame.setVisible(true);
+        frame.Manager.setSelectedIndex(2);
     }//GEN-LAST:event_backActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
@@ -184,13 +185,13 @@ public class AddItem extends javax.swing.JFrame {
         if (flag) {
             item.setConsumable(yes.isSelected());
             Driver.getInstance().addItem(item);
-            JOptionPane.showMessageDialog(null, "Item has been added Successfully!");
+            JOptionPane.showMessageDialog(this, "Item has been added Successfully!");
             backActionPerformed(evt);
         }
         else {
-            JOptionPane.showMessageDialog(null, "Data Invalid");
+            JOptionPane.showMessageDialog(this, "Data Invalid");
         }
-        System.out.println(item.getName() + item.getQuantity());
+//        System.out.println(item.getName() + item.getQuantity());
     }//GEN-LAST:event_addActionPerformed
 
     /**

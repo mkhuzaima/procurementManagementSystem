@@ -90,6 +90,11 @@ public class ViewItem extends javax.swing.JFrame {
         jScrollPane4.setViewportView(table);
 
         jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Export to PDF");
 
@@ -139,6 +144,14 @@ public class ViewItem extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        AdminDashboard frame = new AdminDashboard();
+        frame.setVisible(true);
+        frame.Manager.setSelectedIndex(2);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

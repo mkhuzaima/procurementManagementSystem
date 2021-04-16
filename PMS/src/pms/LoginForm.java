@@ -192,39 +192,68 @@ public class LoginForm extends javax.swing.JFrame {
         
         FileWriter fw;
         try {
-            fw = new FileWriter("employee.txt");
+            fw = new FileWriter("person.txt");
             
             for (Employee employee : Driver.getInstance().getEmployees()) {
                 String str;
                 str = String.format("%s;%s;%s;%s;%s;%s\n", employee.getName(),
                         employee.getId(), employee.getContactNumber(),
                         employee.getEmail(), employee.getCnic(),
-                        employee.getAddress());
+                        employee.getAddress()
+                );
 
                 fw.write(str);
             }
-            fw.close();
-
-        } catch (IOException ex) {
-            System.out.println("Error while writing employee data to file");
-        }
-        
-        try {
-            fw = new FileWriter("manager.txt");
             
             for (Manager manager : Driver.getInstance().getManagers()) {
                 String str;
                 str = String.format("%s;%s;%s;%s;%s;%s\n", manager.getName(),
                         manager.getId(), manager.getContactNumber(),
                         manager.getEmail(), manager.getCnic(),
-                        manager.getAddress());
+                        manager.getAddress()
+                );
 
                 fw.write(str);
             }
             
+            
             fw.close();
+
         } catch (IOException ex) {
+            System.out.println("Error while writing employee data to file");
+        }
+        
+        /*
+            try {
+            fw = new FileWriter("manager.txt");
+            
+            for (Manager manager : Driver.getInstance().getManagers()) {
+            String str;
+            str = String.format("%s;%s;%s;%s;%s;%s\n", manager.getName(),
+            manager.getId(), manager.getContactNumber(),
+            manager.getEmail(), manager.getCnic(),
+            manager.getAddress());
+            
+            fw.write(str);
+            }
+            
+            fw.close();
+            } catch (IOException ex) {
             System.out.println("Error while writing manager data to file");
+            }*/
+        
+        try {
+            fw = new FileWriter("items.txt");
+            
+            for (Item item : Driver.getInstance().getItems()) {
+                fw.write(item.getId() + ';' + item.getName() + ';'+ item.getQuantity() + ';'+ 
+                        item.isConsumable() + '\n');
+            }
+            fw.close();
+            
+        } catch (IOException ex) {
+            System.out.println("Failed to save data of the items.");
+//            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         System.exit(0);
@@ -239,7 +268,7 @@ public class LoginForm extends javax.swing.JFrame {
         
         if (username.equals("Admin123") && password.equals("Admin123")) {
             flag = true;
-            JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
+//            JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
             this.dispose();
             AdminDashboard frame = new AdminDashboard();
             frame.setVisible(true);
@@ -248,7 +277,7 @@ public class LoginForm extends javax.swing.JFrame {
         if (username.startsWith("EMP-")) {
             for (Employee employee : Driver.getInstance().getEmployees()) {
                 if (username.equals(employee.getId()) && password.equals(employee.getPassword())) {
-                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
+//                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
                     EmployeeDashboard frame = new EmployeeDashboard();
                     this.dispose();
                     frame.setVisible(true);
@@ -260,7 +289,7 @@ public class LoginForm extends javax.swing.JFrame {
         else if (username.startsWith("MAN-")) {
             for (Manager manager : Driver.getInstance().getManagers()) {
                 if (username.equals(manager.getId()) && password.equals(manager.getPassword())) {
-                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
+//                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
                     ManagerDashboard frame = new ManagerDashboard();
                     this.dispose();
                     frame.setVisible(true);

@@ -11,4 +11,26 @@ package pms;
  */
 public class Manager extends Person {
     
+    public void issueItem() {
+//        return true;
+    }
+    
+    public void viewRequests () {
+//        return true;
+    }
+    
+    public void viewItems() {
+        
+    }
+    
+    public void viewIssuedItems() {
+        
+    }
+
+    public Manager() {
+        this.setPassword("Manager");
+    }
+    
+    
+    
 }

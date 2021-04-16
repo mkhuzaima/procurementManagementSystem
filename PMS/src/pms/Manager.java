@@ -11,6 +11,14 @@ package pms;
  */
 public class Manager extends Person {
     
+    private static int number = 0;
+    
+    public void setId() {
+        number++;
+        super.setId("MAN-" + number);
+    }
+
+    
     public void issueItem() {
 //        return true;
     }
@@ -30,7 +38,5 @@ public class Manager extends Person {
     public Manager() {
         this.setPassword("Manager");
     }
-    
-    
     
 }

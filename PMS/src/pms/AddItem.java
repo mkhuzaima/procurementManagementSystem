@@ -190,7 +190,7 @@ public class AddItem extends javax.swing.JFrame {
         else {
             JOptionPane.showMessageDialog(null, "Data Invalid");
         }
-//       System.out.println(person.getName() + person.getCnic());
+        System.out.println(item.getName() + item.getQuantity());
     }//GEN-LAST:event_addActionPerformed
 
     /**

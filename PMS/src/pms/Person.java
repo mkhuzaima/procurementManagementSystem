@@ -5,6 +5,9 @@
  */
 package pms;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author M_Khuzaima
@@ -14,9 +17,50 @@ public class Person {
     private String email;
     private String address;
     private String password;
-    private String id;
+    private String id = "";
     private String cnic;
     private String gender;
+    private Date joiningDate;
+    private String contactNumber;
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+    
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean setContactNumber(String contactNumber) {
+        
+        int size = contactNumber.length();
+        if (size != 11) {
+            return false;
+        }
+        
+        for (int i = 0; i < size; i++) {
+            char ch = contactNumber.charAt(i);
+            if (!Character.isDigit(ch)) {
+                return false;
+            }
+        }
+        
+        this.contactNumber = contactNumber;
+        return true;
+    }
+    
+    public String getJoiningDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        return sdf.format(this.joiningDate);
+    }
+
+    public void setJoiningDate(Date joiningDate) {
+        
+        this.joiningDate = joiningDate;
+    }
+    
+    
 
     public String getGender() {
         return gender;
@@ -70,7 +114,7 @@ public class Person {
             return false;
         
         for (int i = 0; i < size; i++) {
-            char ch = email.charAt(i);
+            char ch = arr[0].charAt(i);
             if(!Character.isLetterOrDigit(ch)) {
                 return false;
             }
@@ -81,15 +125,15 @@ public class Person {
             return false;
         
         for (int i = 0; i < size; i++) {
-            char ch = email.charAt(i);
+            char ch = arr[1].charAt(i);
             if(!(Character.isLetter(ch) || ch == '.')) {
                 return false;
             }
         }
-        
         this.email = email;
         return true;
     }
+
 
     public String getAddress() {
         return address;

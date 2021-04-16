@@ -247,6 +247,10 @@ public class AddManager extends javax.swing.JFrame {
 //            System.out.println("email");
             flag = false;
         }
+        if (!mn.setContactNumber(contactNumberField.getText())) {
+//            System.out.println("contact number");
+            flag = false;
+        }
         if (!mn.setAddress(addressArea.getText())) {
 //            System.out.println("address");
             flag = false;
@@ -260,8 +264,6 @@ public class AddManager extends javax.swing.JFrame {
             Driver.getInstance().addManager(mn);
             JOptionPane.showMessageDialog(null, "Manager has been added Successfully!");
 
-            
-            
             backActionPerformed(evt);
         }
         else {

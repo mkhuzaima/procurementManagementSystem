@@ -5,8 +5,11 @@
  */
 package pms;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
-import sun.security.jca.GetInstance;
+import java.util.Date;
+//import sun.security.jca.GetInstance;
 
 /**
  *
@@ -19,6 +22,38 @@ public class Driver {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        FileReader fr;
+        BufferedReader br;
+        
+        try {
+            fr = new FileReader("employee.txt");
+            br = new BufferedReader(fr);
+            
+            String line = br.readLine();
+            while(line!= null) {
+                
+                String [] arr = line.split(";");
+                if (arr.length == 6) {
+                    Employee employee = new Employee();
+                    employee.setName(arr[0]);
+                    employee.setId(arr[1]);
+                    employee.setContactNumber(arr[2]);
+                    employee.setEmail(arr[3]);
+                    employee.setCnic(arr[4]);
+                    employee.setAddress(arr[5]);
+                    Driver.getInstance().addEmployee(employee);
+                }
+                
+                line = br.readLine();
+            }
+            
+            br.close();
+            fr.close();
+        
+        } catch (Exception e) {
+            System.out.println("Failed to load employee Data");
+        }
         
         LoginForm frame = new LoginForm();
         frame.setVisible(true);
@@ -46,7 +81,10 @@ public class Driver {
     }
     
     public void addManager(Manager manager) {
-        
+        manager.setJoiningDate(new Date());
+        if (manager.getId() == null) {
+            manager.setId();
+        }
         this.managers.add(manager);
     }
 
@@ -69,8 +107,12 @@ public class Driver {
     }
     
     public void addEmployee(Employee employee) {
-        
+        if (employee.getId() == null) {
+            employee.setId();
+        }
+        employee.setJoiningDate(new Date());
         this.employees.add(employee);
+        
     }
 
     public ArrayList<Item> getItems() {
@@ -82,7 +124,7 @@ public class Driver {
     }
     
     public void addItem(Item item) {
-        
+        item.setId();
         this.items.add(item);
     }
     

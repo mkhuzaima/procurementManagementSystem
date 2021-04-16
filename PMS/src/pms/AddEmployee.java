@@ -228,6 +228,9 @@ public class AddEmployee extends javax.swing.JFrame {
 //            System.out.println("cnic");
             flag = false;
         }
+        if (!employee.setContactNumber(contactNumber.getText())) {
+            flag = false;
+        }
         if (!employee.setEmail(emailField.getText())) {
 //            System.out.println("email");
             flag = false;
@@ -244,9 +247,6 @@ public class AddEmployee extends javax.swing.JFrame {
             employee.setGender(male.isSelected()?"Male" : "Female");
             Driver.getInstance().addEmployee(employee);
             JOptionPane.showMessageDialog(null, "Employee has been added Successfully!");
-
-            
-            
             backBtnActionPerformed(evt);
         }
         else {

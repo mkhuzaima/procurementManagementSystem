@@ -4,17 +4,43 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author M_Khuzaima
  */
 public class ViewManager extends javax.swing.JFrame {
 
+    
+    DefaultTableModel model;
     /**
      * Creates new form ViewManager
      */
     public ViewManager() {
         initComponents();
+        model= new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Joining Date");
+        model.addColumn("Operation");
+        model.addColumn("Issued Items");
+        model.addColumn("Pending Requests");
+        
+        Object [] obj = new Object[6];
+        for (Manager mn: Driver.getInstance().getManagers()) {
+            obj[0] = mn.getId();
+            obj[1] = mn.getName();
+            obj[2] = mn.getJoiningDate();
+            ////////////////////////////////////////////////////
+            obj[3] = "Edit/delete";
+            obj[4] = mn.getName();
+            obj[5] = mn.getName();
+            model.addRow(obj);
+            
+        }
+        table.setModel(model);
     }
 
     /**
@@ -29,7 +55,7 @@ public class ViewManager extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -38,8 +64,8 @@ public class ViewManager extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel2.setText("View Manager");
 
-        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"EMP-1", "Ahmad", "Jan 1, 2021", "Edit/delete/personal info", "5", "1"},
                 {null, null, null, null, null, null},
@@ -58,11 +84,16 @@ public class ViewManager extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setName(""); // NOI18N
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        table.setName(""); // NOI18N
+        table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(table);
 
         jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Export to PDF");
 
@@ -113,6 +144,13 @@ public class ViewManager extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        AdminDashboard frame = new AdminDashboard();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -154,6 +192,6 @@ public class ViewManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

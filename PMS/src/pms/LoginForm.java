@@ -5,6 +5,10 @@
  */
 package pms;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -185,6 +189,44 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
+        
+        FileWriter fw;
+        try {
+            fw = new FileWriter("employee.txt");
+            
+            for (Employee employee : Driver.getInstance().getEmployees()) {
+                String str;
+                str = String.format("%s;%s;%s;%s;%s;%s\n", employee.getName(),
+                        employee.getId(), employee.getContactNumber(),
+                        employee.getEmail(), employee.getCnic(),
+                        employee.getAddress());
+
+                fw.write(str);
+            }
+            fw.close();
+
+        } catch (IOException ex) {
+            System.out.println("Error while writing employee data to file");
+        }
+        
+        try {
+            fw = new FileWriter("manager.txt");
+            
+            for (Manager manager : Driver.getInstance().getManagers()) {
+                String str;
+                str = String.format("%s;%s;%s;%s;%s;%s\n", manager.getName(),
+                        manager.getId(), manager.getContactNumber(),
+                        manager.getEmail(), manager.getCnic(),
+                        manager.getAddress());
+
+                fw.write(str);
+            }
+            
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("Error while writing manager data to file");
+        }
+        
         System.exit(0);
     }//GEN-LAST:event_exitActionPerformed
 
@@ -192,13 +234,44 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String password = String.valueOf(pwdField.getPassword());
         String username = usernameField.getText();
+        
+        boolean flag = false;
+        
         if (username.equals("Admin123") && password.equals("Admin123")) {
+            flag = true;
             JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
             this.dispose();
             AdminDashboard frame = new AdminDashboard();
             frame.setVisible(true);
         }
-        else {
+
+        if (username.startsWith("EMP-")) {
+            for (Employee employee : Driver.getInstance().getEmployees()) {
+                if (username.equals(employee.getId()) && password.equals(employee.getPassword())) {
+                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
+                    EmployeeDashboard frame = new EmployeeDashboard();
+                    this.dispose();
+                    frame.setVisible(true);
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        else if (username.startsWith("MAN-")) {
+            for (Manager manager : Driver.getInstance().getManagers()) {
+                if (username.equals(manager.getId()) && password.equals(manager.getPassword())) {
+                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
+                    ManagerDashboard frame = new ManagerDashboard();
+                    this.dispose();
+                    frame.setVisible(true);
+                    flag = true;
+                    break;
+                }
+        
+            }
+        }
+
+        if (!flag) {
             JOptionPane.showMessageDialog(this, "Please type the correct username and password", "Invalid Credentials", -1);
         }
             

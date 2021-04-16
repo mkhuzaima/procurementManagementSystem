@@ -4,17 +4,44 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author M_Khuzaima
  */
 public class ViewItem extends javax.swing.JFrame {
 
+    DefaultTableModel model;
     /**
      * Creates new form ViewItem
      */
     public ViewItem() {
         initComponents();
+        model = new DefaultTableModel();
+        model= new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Joining Date");
+        model.addColumn("Operation");
+        model.addColumn("Issued Items");
+        model.addColumn("Pending Requests");
+        
+        Object [] obj = new Object[6];
+        for (Item item : Driver.getInstance().getItems()) {
+            obj[0] = item.getId();
+            obj[1] = item.getName();
+            obj[2] = item.getName();
+            ////////////////////////////////////////////////////
+            obj[3] = "Edit/delete";
+            obj[4] = item.getName();
+            obj[5] = item.getName();
+            model.addRow(obj);
+            
+        }
+        table.setModel(model);
+        
     }
 
     /**
@@ -29,7 +56,7 @@ public class ViewItem extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -38,8 +65,8 @@ public class ViewItem extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel5.setText("View Items");
 
-        jTable4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        table.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"EMP-1", "Notebook", "Jan 1, 2021", "Edit/delete/info", "5", "1"},
                 {null, null, null, null, null, null},
@@ -58,9 +85,9 @@ public class ViewItem extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable4.setName(""); // NOI18N
-        jTable4.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable4);
+        table.setName(""); // NOI18N
+        table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(table);
 
         jButton1.setText("OK");
 
@@ -151,21 +178,9 @@ public class ViewItem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

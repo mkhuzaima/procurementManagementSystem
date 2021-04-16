@@ -13,6 +13,18 @@ class Item {
     private String name;
     private int quantity;
     private boolean consumable;
+    private String id;
+    private static int number = 0;
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId() {
+        number++;
+        id = "ITM-" + number;
+    }
+    
 
     public String getName() {
         return name;

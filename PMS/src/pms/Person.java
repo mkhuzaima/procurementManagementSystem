@@ -16,6 +16,16 @@ public class Person {
     private String password;
     private String id;
     private String cnic;
+    private String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
 
     public String getName() {
         return name;

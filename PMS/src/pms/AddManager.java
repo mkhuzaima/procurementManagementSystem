@@ -13,11 +13,17 @@ import javax.swing.JOptionPane;
  */
 public class AddManager extends javax.swing.JFrame {
 
+//    private String type;
+    
     /**
      * Creates new form AddManager
      */
-    public AddManager() {
+    public AddManager(/*String type*/) {
         initComponents();
+//        this.type = type;
+//        if (type.equals("Manager")) {
+//            
+//        }
     }
 
     /**
@@ -32,7 +38,7 @@ public class AddManager extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         genderGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        heading = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -42,8 +48,8 @@ public class AddManager extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         contactNumberField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        malebtn = new javax.swing.JRadioButton();
-        femalebtn = new javax.swing.JRadioButton();
+        male = new javax.swing.JRadioButton();
+        female = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         addressArea = new javax.swing.JTextArea();
@@ -54,8 +60,8 @@ public class AddManager extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
-        jLabel2.setText("Add Manager");
+        heading.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
+        heading.setText("Add Manager");
 
         jLabel3.setText("Name");
 
@@ -79,11 +85,11 @@ public class AddManager extends javax.swing.JFrame {
 
         jLabel7.setText("Gender");
 
-        genderGroup.add(malebtn);
-        malebtn.setText("Male");
+        genderGroup.add(male);
+        male.setText("Male");
 
-        genderGroup.add(femalebtn);
-        femalebtn.setText("Female");
+        genderGroup.add(female);
+        female.setText("Female");
 
         jLabel8.setText("Address");
 
@@ -136,9 +142,9 @@ public class AddManager extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGap(59, 59, 59)
-                                            .addComponent(malebtn)
+                                            .addComponent(male)
                                             .addGap(18, 18, 18)
-                                            .addComponent(femalebtn))
+                                            .addComponent(female))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGap(53, 53, 53)
                                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -149,7 +155,7 @@ public class AddManager extends javax.swing.JFrame {
                             .addGap(6, 6, 6)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(117, 117, 117)
-                        .addComponent(jLabel2))
+                        .addComponent(heading))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addComponent(back)
@@ -161,7 +167,7 @@ public class AddManager extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel2)
+                .addComponent(heading)
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -181,8 +187,8 @@ public class AddManager extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(malebtn)
-                    .addComponent(femalebtn))
+                    .addComponent(male)
+                    .addComponent(female))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -245,8 +251,12 @@ public class AddManager extends javax.swing.JFrame {
 //            System.out.println("address");
             flag = false;
         }
+        if (!male.isSelected() && !female.isSelected()) {
+            flag = false;
+        }
         
         if (flag) {
+            mn.setGender(male.isSelected()?"Male" : "Female");
             Driver.getInstance().addManager(mn);
             JOptionPane.showMessageDialog(null, "Manager has been added Successfully!");
 
@@ -302,10 +312,10 @@ public class AddManager extends javax.swing.JFrame {
     private javax.swing.JTextField cnicField;
     private javax.swing.JTextField contactNumberField;
     private javax.swing.JTextField emailField;
-    private javax.swing.JRadioButton femalebtn;
+    private javax.swing.JRadioButton female;
     private javax.swing.ButtonGroup genderGroup;
+    private javax.swing.JLabel heading;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -314,7 +324,7 @@ public class AddManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton malebtn;
+    private javax.swing.JRadioButton male;
     private javax.swing.JTextField nameField;
     // End of variables declaration//GEN-END:variables
 }

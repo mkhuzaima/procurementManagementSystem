@@ -11,4 +11,15 @@ package pms;
  */
 class Employee extends Person {
     
-}
+    public void requestItem() {
+        
+    }
+    
+    public void viewRequestItems() {
+        
+    }
+    
+    public void viewIssuedItems() {
+        
+    }
+} 

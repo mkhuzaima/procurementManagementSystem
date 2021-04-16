@@ -67,6 +67,11 @@ public class Driver {
     public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
+    
+    public void addEmployee(Employee employee) {
+        
+        this.employees.add(employee);
+    }
 
     public ArrayList<Item> getItems() {
         return items;
@@ -76,7 +81,10 @@ public class Driver {
         this.items = items;
     }
     
-    
+    public void addItem(Item item) {
+        
+        this.items.add(item);
+    }
     
     
 }

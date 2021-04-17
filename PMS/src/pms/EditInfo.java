@@ -4,18 +4,49 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author M_Khuzaima
  */
 public class EditInfo extends javax.swing.JFrame {
 
+    private Person person;
+
+    
     /**
      * Creates new form EditInfo
      */
     public EditInfo() {
         initComponents();
     }
+    
+    public EditInfo(Person person) {
+        initComponents();
+        this.person = person;
+        fillData();
+    }
+    
+    private void fillData() {
+        
+        if (person != null) {
+            nameField.setText(person.getName());
+            idField.setText(person.getId());
+            emailField.setText(person.getEmail());
+            contactNumberField.setText(person.getContactNumber());
+            addressArea.setText(person.getAddress());
+        }
+        else {
+            nameField.setText(null);
+            idField.setText(null);
+            emailField.setText(null);
+            contactNumberField.setText(null);
+            addressArea.setText(null);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,35 +59,40 @@ public class EditInfo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton14 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        idField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        contactNumberField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        addressArea = new javax.swing.JTextArea();
         heading = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        discard = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton14.setText("Edit info");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setEditable(false);
+        nameField.setEditable(false);
 
         jLabel2.setText("ID");
 
-        jTextField2.setEditable(false);
+        idField.setEditable(false);
 
-        jTextField3.setText("abc@xyz.com");
+        emailField.setText("abc@xyz.com");
 
         jLabel3.setText("Email");
 
-        jTextField4.setText("____-_______");
+        contactNumberField.setText("____-_______");
 
         jLabel5.setText("Address");
 
@@ -64,14 +100,19 @@ public class EditInfo extends javax.swing.JFrame {
 
         jLabel1.setText("Name");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        addressArea.setColumns(20);
+        addressArea.setRows(5);
+        jScrollPane1.setViewportView(addressArea);
 
         heading.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         heading.setText("Edit Info");
 
-        jButton2.setText("Discard");
+        discard.setText("Discard");
+        discard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discardActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,11 +130,11 @@ public class EditInfo extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField3))
+                                .addComponent(emailField))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -101,8 +142,8 @@ public class EditInfo extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(9, 9, 9)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contactNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(30, 30, 30))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +152,7 @@ public class EditInfo extends javax.swing.JFrame {
                         .addComponent(heading))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(153, 153, 153)
-                        .addComponent(jButton2)
+                        .addComponent(discard)
                         .addGap(50, 50, 50)
                         .addComponent(jButton14)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -124,15 +165,15 @@ public class EditInfo extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contactNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,7 +183,7 @@ public class EditInfo extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton14)
-                    .addComponent(jButton2))
+                    .addComponent(discard))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
@@ -159,6 +200,66 @@ public class EditInfo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure?", "Sure?", JOptionPane.YES_NO_OPTION);
+//        System.out.println(response);
+        if (response != 0) {
+//            System.out.println("response condition is true");
+            return ;
+        }
+        
+        boolean flag = true;
+        if (!person.setName(nameField.getText())) {
+//            System.out.println("name");
+            flag = false;
+        }
+        if (!person.setEmail(emailField.getText())) {
+//            System.out.println("email");
+            flag = false;
+        }
+        if (!person.setContactNumber(contactNumberField.getText())) {
+//            System.out.println("contact number");
+            flag = false;
+        }
+        if (!person.setAddress(addressArea.getText())) {
+//            System.out.println("address");
+            flag = false;
+        }
+        
+        if (flag) {
+//            System.out.println("runnig before update statement");
+            JOptionPane.showMessageDialog(this, "All data has been updated Successfully!");
+       
+//            System.out.println(Driver.getInstance().getManagers().get(index).getName() + mn.getCnic());
+
+            discardActionPerformed(evt);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Some of the data is Invalid");
+        }
+//       System.out.println(mn.getName() + mn.getCnic());
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void discardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardActionPerformed
+        // TODO add your handling code here:
+        boolean flag = false;
+        if (person.getId().startsWith("EMP-")) {
+            EmployeeDashboard frame = new EmployeeDashboard((Employee) person);
+            frame.setVisible(true);
+            flag = true;
+        }
+        else {
+            ManagerDashboard frame = new ManagerDashboard((Manager) person);
+            frame.setVisible(true);
+            flag = true;
+        }
+        
+        if (flag) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_discardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,9 +297,13 @@ public class EditInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea addressArea;
+    private javax.swing.JTextField contactNumberField;
+    private javax.swing.JButton discard;
+    private javax.swing.JTextField emailField;
     private javax.swing.JLabel heading;
+    private javax.swing.JTextField idField;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -206,10 +311,6 @@ public class EditInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField nameField;
     // End of variables declaration//GEN-END:variables
 }

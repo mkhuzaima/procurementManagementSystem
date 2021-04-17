@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author M_Khuzaima
@@ -15,6 +18,15 @@ public class EditItem extends javax.swing.JFrame {
      */
     public EditItem() {
         initComponents();
+        fillIDChooser();
+    }
+    
+    private void fillIDChooser() {
+        idChooser.removeAll();
+        for (Item item: Driver.getInstance().getItems()) {
+            idChooser.addItem(item.getId());
+        }
+        idChooser.setSelectedIndex(-1);
     }
 
     /**
@@ -26,18 +38,19 @@ public class EditItem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        consumabelGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        discard = new javax.swing.JButton();
+        nameField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        quantityField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        yes = new javax.swing.JRadioButton();
+        no = new javax.swing.JRadioButton();
+        idChooser = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,12 +61,22 @@ public class EditItem extends javax.swing.JFrame {
         jLabel3.setText("Item Name");
 
         jButton1.setText("Edit");
-
-        jButton2.setText("Discard");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        discard.setText("Discard");
+        discard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discardActionPerformed(evt);
+            }
+        });
+
+        nameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameFieldActionPerformed(evt);
             }
         });
 
@@ -61,12 +84,17 @@ public class EditItem extends javax.swing.JFrame {
 
         jLabel7.setText("Consumable");
 
-        jRadioButton1.setText("Yes");
+        consumabelGroup.add(yes);
+        yes.setText("Yes");
 
-        jRadioButton2.setText("No");
+        consumabelGroup.add(no);
+        no.setText("No");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ITM-1", "ITM-2", "ITM-3" }));
-        jComboBox1.setSelectedIndex(-1);
+        idChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idChooserActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Item ID");
 
@@ -75,34 +103,35 @@ public class EditItem extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(jLabel2)
-                .addContainerGap(137, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jButton2)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(77, 77, 77)
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1))
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(83, 83, 83)
+                                .addComponent(discard)
+                                .addGap(34, 34, 34)
+                                .addComponent(jButton1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(77, 77, 77)
+                                .addComponent(yes)
+                                .addGap(18, 18, 18)
+                                .addComponent(no))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel1))
+                                .addGap(52, 52, 52)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(nameField)
+                                    .addComponent(quantityField)
+                                    .addComponent(idChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(141, 141, 141))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,25 +140,25 @@ public class EditItem extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(yes)
+                    .addComponent(no))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(discard))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -137,7 +166,7 @@ public class EditItem extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,9 +178,73 @@ public class EditItem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nameFieldActionPerformed
+
+    private void discardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardActionPerformed
+        // TODO add your handling code here:
+        AdminDashboard frame = new AdminDashboard();
+        frame.setVisible(true);
+        frame.Manager.setSelectedIndex(2);
+        this.dispose();
+    }//GEN-LAST:event_discardActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure?", "Sure?", JOptionPane.YES_NO_OPTION);
+//        System.out.println(response);
+        if (response != 0) {
+//            System.out.println("response condition is true");
+            return ;
+        }
+        
+        int index = idChooser.getSelectedIndex();
+        if (index == -1) {
+            return ;
+        }
+        boolean flag = true;
+        
+        Item item = Driver.getInstance().getItems().get(index);
+        if (!item.setName(nameField.getText())) {
+//            System.out.println("name");
+            flag = false;
+        }
+        
+        if (!item.setQuantity(quantityField.getText())) {
+//            System.out.println("quantity");
+            flag = false;
+        }
+        if (!yes.isSelected() && !no.isSelected()) {
+            flag = false;
+        }
+        
+        if (flag) {
+            item.setConsumable(yes.isSelected());
+            JOptionPane.showMessageDialog(this, "Employee has been updated Successfully!");
+            discardActionPerformed(evt);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Data Invalid");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void idChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idChooserActionPerformed
+        // TODO add your handling code here:
+        int index = idChooser.getSelectedIndex();
+        if (index != -1) {
+            Item item = Driver.getInstance().getItems().get(index);
+            nameField.setText(item.getName());
+            quantityField.setText(String.valueOf(item.getQuantity()));
+            yes.setSelected(item.isConsumable());
+            no.setSelected(!item.isConsumable());
+        }
+        else {
+            nameField.setText(null);
+            quantityField.setText(null);
+            consumabelGroup.clearSelection();
+        }
+    }//GEN-LAST:event_idChooserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,18 +282,19 @@ public class EditItem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup consumabelGroup;
+    private javax.swing.JButton discard;
+    private javax.swing.JComboBox<String> idChooser;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JRadioButton no;
+    private javax.swing.JTextField quantityField;
+    private javax.swing.JRadioButton yes;
     // End of variables declaration//GEN-END:variables
 }

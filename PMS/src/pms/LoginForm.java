@@ -269,16 +269,16 @@ public class LoginForm extends javax.swing.JFrame {
         if (username.equals("Admin123") && password.equals("Admin123")) {
             flag = true;
 //            JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
-            this.dispose();
             AdminDashboard frame = new AdminDashboard();
             frame.setVisible(true);
+            this.dispose();
         }
 
         if (username.startsWith("EMP-")) {
             for (Employee employee : Driver.getInstance().getEmployees()) {
                 if (username.equals(employee.getId()) && password.equals(employee.getPassword())) {
 //                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
-                    EmployeeDashboard frame = new EmployeeDashboard();
+                    EmployeeDashboard frame = new EmployeeDashboard(employee);
                     this.dispose();
                     frame.setVisible(true);
                     flag = true;
@@ -290,7 +290,7 @@ public class LoginForm extends javax.swing.JFrame {
             for (Manager manager : Driver.getInstance().getManagers()) {
                 if (username.equals(manager.getId()) && password.equals(manager.getPassword())) {
 //                    JOptionPane.showMessageDialog(this, "you have logged in successfully!", "Success", 1);
-                    ManagerDashboard frame = new ManagerDashboard();
+                    ManagerDashboard frame = new ManagerDashboard(manager);
                     this.dispose();
                     frame.setVisible(true);
                     flag = true;

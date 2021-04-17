@@ -72,7 +72,7 @@ class Item {
             return false;
         }
     }
-
+    
     public boolean isConsumable() {
         return consumable;
     }

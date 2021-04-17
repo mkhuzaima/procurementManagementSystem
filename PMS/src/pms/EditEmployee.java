@@ -248,7 +248,7 @@ public class EditEmployee extends javax.swing.JFrame {
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // TODO add your handling code here:
         int response = JOptionPane.showConfirmDialog(this, "Are you sure?", "Sure?", JOptionPane.YES_NO_OPTION);
-        System.out.println(response);
+//        System.out.println(response);
         if (response != 0) {
 //            System.out.println("response condition is true");
             return ;
@@ -298,6 +298,33 @@ public class EditEmployee extends javax.swing.JFrame {
 
     private void idChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idChooserActionPerformed
         // TODO add your handling code here:
+        int index = -1;
+        if (idChooser.getSelectedIndex() != -1) {
+            index = idChooser.getSelectedIndex();
+        }
+        if (index != -1) {
+            Employee employee = Driver.getInstance().getEmployees().get(index);
+            nameField.setText(employee.getName());
+            cnicField.setText(employee.getCnic());
+            emailField.setText(employee.getEmail());
+            contactNumberField.setText(employee.getContactNumber());
+            if (employee.getGender() == "Male") {
+                male.setSelected(true);
+            }
+            else {
+                female.setSelected(true);
+            }
+            
+            addressArea.setText(employee.getAddress());
+        }
+        else {
+            nameField.setText(null);
+            cnicField.setText(null);
+            emailField.setText(null);
+            contactNumberField.setText(null);
+            genderGroup.clearSelection();
+            addressArea.setText(null);
+        }
     }//GEN-LAST:event_idChooserActionPerformed
 
     /**

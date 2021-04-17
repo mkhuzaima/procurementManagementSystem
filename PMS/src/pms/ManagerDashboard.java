@@ -10,11 +10,13 @@ package pms;
  */
 public class ManagerDashboard extends javax.swing.JFrame {
 
+    private Manager manager;
     /**
      * Creates new form ManagerDashboard
      */
-    public ManagerDashboard() {
+    public ManagerDashboard(Manager manager) {
         initComponents();
+        this.manager = manager;
     }
 
     /**
@@ -151,6 +153,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        EditInfo frame = new EditInfo(manager);
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -183,7 +188,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManagerDashboard().setVisible(true);
+//                new ManagerDashboard().setVisible(true);
             }
         });
     }

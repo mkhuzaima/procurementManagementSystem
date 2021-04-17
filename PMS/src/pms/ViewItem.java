@@ -23,7 +23,7 @@ public class ViewItem extends javax.swing.JFrame {
         model= new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Name");
-        model.addColumn("Joining Date");
+        model.addColumn("Quantity");
         model.addColumn("Operation");
         model.addColumn("Issued Items");
         model.addColumn("Pending Requests");
@@ -32,7 +32,7 @@ public class ViewItem extends javax.swing.JFrame {
         for (Item item : Driver.getInstance().getItems()) {
             obj[0] = item.getId();
             obj[1] = item.getName();
-            obj[2] = item.getName();
+            obj[2] = item.getQuantity();
             ////////////////////////////////////////////////////
             obj[3] = "Edit/delete";
             obj[4] = item.getName();

@@ -10,9 +10,11 @@ package pms;
  */
 public class EmployeeDashboard extends javax.swing.JFrame {
 
+    private Employee employee;
     /** Creates new form EmployeeDashboard */
-    public EmployeeDashboard() {
+    public EmployeeDashboard(Employee employee) {
         initComponents();
+        this.employee = employee;
     }
 
     /** This method is called from within the constructor to
@@ -148,6 +150,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        EditInfo frame = new EditInfo(employee);
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -180,7 +185,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EmployeeDashboard().setVisible(true);
+//                new EmployeeDashboard().setVisible(true);
             }
         });
     }

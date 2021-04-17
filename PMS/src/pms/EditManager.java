@@ -24,6 +24,7 @@ public class EditManager extends javax.swing.JFrame {
 //            System.out.println(manager.getId() + manager.getName());
         }
         idChooser.setSelectedIndex(-1);
+//        idChooser.setFocusable(false);
     }
 
     /**
@@ -266,7 +267,7 @@ public class EditManager extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int response = JOptionPane.showConfirmDialog(this, "Are you sure?", "Sure?", JOptionPane.YES_NO_OPTION);
-        System.out.println(response);
+//        System.out.println(response);
         if (response != 0) {
 //            System.out.println("response condition is true");
             return ;
@@ -309,7 +310,7 @@ public class EditManager extends javax.swing.JFrame {
 //            System.out.println("runnig before update statement");
             JOptionPane.showMessageDialog(this, "Manager has been updated Successfully!");
        
-            System.out.println(Driver.getInstance().getManagers().get(index).getName() + mn.getCnic());
+//            System.out.println(Driver.getInstance().getManagers().get(index).getName() + mn.getCnic());
 
             discardActionPerformed(evt);
         }
@@ -406,7 +407,7 @@ public class EditManager extends javax.swing.JFrame {
             cnicField.setText(manager.getCnic());
             emailField.setText(manager.getEmail());
             contactNumberField.setText(manager.getContactNumber());
-            if (manager.getGender() == "male") {
+            if (manager.getGender() == "Male") {
                 male.setSelected(true);
             }
             else {

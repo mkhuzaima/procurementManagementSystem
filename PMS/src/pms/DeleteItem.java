@@ -3,6 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package pms;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +18,17 @@ public class DeleteItem extends javax.swing.JFrame {
      */
     public DeleteItem() {
         initComponents();
+        fillIDChooser();
+    }
+    
+    private void fillIDChooser() {
+        idChooser.removeAll();
+        for (Item item: Driver.getInstance().getItems()) {
+            idChooser.addItem(item.getId());
+        }
+        idChooser.setSelectedIndex(-1);
+//        nameField.setEnabled(true);
+        nameField.setEditable(false);
     }
 
     /**
@@ -26,21 +40,30 @@ public class DeleteItem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        consumableGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        idChooser = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        back = new javax.swing.JButton();
+        nameField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        quantityField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        yes = new javax.swing.JRadioButton();
+        no = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        idChooser.setEditable(true);
+        idChooser.setSelectedIndex(-1);
+        idChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idChooserActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel2.setText("Delete Item");
@@ -48,31 +71,39 @@ public class DeleteItem extends javax.swing.JFrame {
         jLabel3.setText("Item Name");
 
         jButton1.setText("Delete");
-
-        jButton2.setText("Back");
-
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
+        nameField.setEditable(false);
+        nameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameFieldActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Quantity");
 
-        jTextField2.setEditable(false);
+        quantityField.setEditable(false);
 
         jLabel7.setText("Consumable");
 
-        jRadioButton1.setText("Yes");
-        jRadioButton1.setEnabled(false);
+        consumableGroup.add(yes);
+        yes.setText("Yes");
+        yes.setEnabled(false);
 
-        jRadioButton2.setText("No");
-        jRadioButton2.setEnabled(false);
-
-        jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ITM-1", "ITM-2", "ITM-3" }));
-        jComboBox1.setSelectedIndex(-1);
+        consumableGroup.add(no);
+        no.setText("No");
+        no.setEnabled(false);
 
         jLabel1.setText("Item ID");
 
@@ -89,15 +120,15 @@ public class DeleteItem extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
-                        .addComponent(jButton2)
+                        .addComponent(back)
                         .addGap(34, 34, 34)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(77, 77, 77)
-                        .addComponent(jRadioButton1)
+                        .addComponent(yes)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
+                        .addComponent(no))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -105,9 +136,9 @@ public class DeleteItem extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(52, 52, 52)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(quantityField, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(idChooser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(48, 48, 48))
         );
         jPanel1Layout.setVerticalGroup(
@@ -117,27 +148,29 @@ public class DeleteItem extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(yes)
+                    .addComponent(no))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(back))
                 .addGap(16, 16, 16))
         );
+
+        idChooser.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,9 +188,54 @@ public class DeleteItem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nameFieldActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        AdminDashboard frame = new AdminDashboard();
+        frame.setVisible(true);
+        frame.Manager.setSelectedIndex(2);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure?", "Sure?", JOptionPane.YES_NO_OPTION);
+//        System.out.println(response);
+        if (response != 0) {
+//            System.out.println("response condition is true");
+            return ;
+        }
+        
+        int index = idChooser.getSelectedIndex();
+        if (index == -1) {
+            return ;
+        }
+        
+        Driver.getInstance().getItems().remove(index);
+        JOptionPane.showMessageDialog(this, "Employee has been deleted Successfully!");
+        backActionPerformed(evt);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void idChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idChooserActionPerformed
+        // TODO add your handling code here:
+        int index = idChooser.getSelectedIndex();
+        if (index != -1) {
+            Item item = Driver.getInstance().getItems().get(index);
+            nameField.setText(item.getName());
+            quantityField.setText(String.valueOf(item.getQuantity()));
+            yes.setSelected(item.isConsumable());
+            no.setSelected(!item.isConsumable());
+        }
+        else {
+            nameField.setText(null);
+            quantityField.setText(null);
+            consumableGroup.clearSelection();
+        }
+    }//GEN-LAST:event_idChooserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,18 +273,19 @@ public class DeleteItem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.ButtonGroup consumableGroup;
+    private javax.swing.JComboBox<String> idChooser;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JRadioButton no;
+    private javax.swing.JTextField quantityField;
+    private javax.swing.JRadioButton yes;
     // End of variables declaration//GEN-END:variables
 }

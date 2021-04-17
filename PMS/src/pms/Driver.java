@@ -7,6 +7,8 @@ package pms;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 //import sun.security.jca.GetInstance;
@@ -97,8 +99,118 @@ public class Driver {
 //            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        try {
+            fr = new FileReader("requestedData.txt");
+            br = new BufferedReader(fr);
+            String line = br.readLine();
+            while(line != null) {
+            
+                String [] arr = line.split(";");
+                if (arr.length == 4) {
+                    RequestRecord requestRecord = new RequestRecord();
+                    requestRecord.setEmployeeId(arr[0]);
+                    requestRecord.setItemId(arr[1]);
+                    requestRecord.setQuantity(arr[2]);
+                    requestRecord.setRequestDate(arr[3]);
+                    
+                    Driver.getInstance().addRequest(requestRecord);
+                
+                }
+                line = br.readLine();
+            }
+            br.close();
+            fr.close();
+            
+        } catch (Exception ex) {
+            System.out.println("Failed to load Requst data.");
+        }
+        
+        
         LoginForm frame = new LoginForm();
         frame.setVisible(true);
+    }
+    
+    public void saveData() {
+        FileWriter fw;
+        try {
+            fw = new FileWriter("person.txt");
+            
+            for (Employee employee : Driver.getInstance().getEmployees()) {
+                String str;
+                str = String.format("%s;%s;%s;%s;%s;%s\n", employee.getName(),
+                        employee.getId(), employee.getContactNumber(),
+                        employee.getEmail(), employee.getCnic(),
+                        employee.getAddress()
+                );
+
+                fw.write(str);
+            }
+            
+            for (Manager manager : Driver.getInstance().getManagers()) {
+                String str;
+                str = String.format("%s;%s;%s;%s;%s;%s\n", manager.getName(),
+                        manager.getId(), manager.getContactNumber(),
+                        manager.getEmail(), manager.getCnic(),
+                        manager.getAddress()
+                );
+
+                fw.write(str);
+            }
+            
+            
+            fw.close();
+
+        } catch (IOException ex) {
+            System.out.println("Error while writing employee data to file");
+        }
+        
+        /*
+            try {
+            fw = new FileWriter("manager.txt");
+            
+            for (Manager manager : Driver.getInstance().getManagers()) {
+            String str;
+            str = String.format("%s;%s;%s;%s;%s;%s\n", manager.getName(),
+            manager.getId(), manager.getContactNumber(),
+            manager.getEmail(), manager.getCnic(),
+            manager.getAddress());
+            
+            fw.write(str);
+            }
+            
+            fw.close();
+            } catch (IOException ex) {
+            System.out.println("Error while writing manager data to file");
+            }*/
+        
+        try {
+            fw = new FileWriter("items.txt");
+            
+            for (Item item : Driver.getInstance().getItems()) {
+                fw.write(item.getId() + ';' + item.getName() + ';'+ item.getQuantity() + ';'+ 
+                        item.isConsumable() + '\n');
+            }
+            fw.close();
+            
+        } catch (IOException ex) {
+            System.out.println("Failed to save data of the items.");
+//            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            fw = new FileWriter("requestedData.txt");
+            for (RequestRecord requestRecord : Driver.getInstance().getRequests()) {
+                fw.write(requestRecord.getEmployeeId() + ';' + 
+                        requestRecord.getItemId() + ';' + 
+                        requestRecord.getQuantity() + ';' +
+                        requestRecord.getRequestDate()  + '\n'
+                );
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Failed to save Requst data.");
+        }
+        
     }
     
     private Administrator administrator;
@@ -106,11 +218,13 @@ public class Driver {
     private ArrayList<Manager> managers;
     private ArrayList<Employee> employees;
     private ArrayList<Item> items;
+    private ArrayList<RequestRecord> requests;
     
     private Driver() {
         managers = new ArrayList<>();
         employees = new ArrayList<>();
         items = new ArrayList<>();
+        requests = new ArrayList<>();
         administrator = new Administrator();
     }
     
@@ -196,6 +310,20 @@ public class Driver {
         }
         this.items.add(item);
     }
+
+    public ArrayList<RequestRecord> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(ArrayList<RequestRecord> requests) {
+        this.requests = requests;
+    }
     
+    public void addRequest (RequestRecord requestRecord) {
+        if (requestRecord.getRequestDate() == null) {
+            requestRecord.setRequestDate();
+        }
+        this.requests.add(requestRecord);
+    }
     
 }

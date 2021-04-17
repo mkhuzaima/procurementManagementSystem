@@ -4,17 +4,57 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author M_Khuzaima
  */
 public class EmployeeRequestedItem extends javax.swing.JFrame {
 
+    private Employee employee;
+    DefaultTableModel model;
     /**
      * Creates new form EmployeeRequestedItem
      */
-    public EmployeeRequestedItem() {
+    public EmployeeRequestedItem(Employee employee) {
         initComponents();
+        model = new DefaultTableModel();
+        
+        this.employee = employee;
+        employeeName.setText(employee.getName());
+        employeeId.setText(employee.getId());
+        fillTable();
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Request Date");
+        model.addColumn("Quantities");
+        model.addColumn("Consumable");
+        model.addColumn("Delete");
+        Object [] obj = new Object[6];
+        for (RequestRecord requestRecord : Driver.getInstance().getRequests()) {
+            Item item = null;
+            for (Item itm : Driver.getInstance().getItems()) {
+                if (itm.getId().equals(requestRecord.getItemId())) {
+                    item = itm;
+                    break;
+                }
+            }
+            
+            obj[0] = requestRecord.getItemId();
+            obj[1] = item.getName();
+            obj[2] = requestRecord.getRequestDate();
+            obj[3] = requestRecord.getQuantity();
+            obj[4] = item.isConsumable()?"Yes" : "No";
+            obj[5] = "Delete";
+        }
+        model.addRow(obj);
+        table.setModel(model);
+    }
+    
+    public void fillTable() {
+        
     }
 
     /**
@@ -29,21 +69,21 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        table = new javax.swing.JTable();
+        ok = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        employeeName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        employeeId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel5.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel5.setText("Requested Items");
 
-        jTable4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        table.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"ITM-1", "Notebook", "Jan 1, 2021", "5", "no", "Cancel"},
                 {null, null, null, null, null, null},
@@ -62,21 +102,26 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable4.setName(""); // NOI18N
-        jTable4.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable4);
+        table.setName(""); // NOI18N
+        table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(table);
 
-        jButton1.setText("OK");
+        ok.setText("OK");
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Export to PDF");
 
         jLabel1.setText("Employee Name");
 
-        jTextField1.setEditable(false);
+        employeeName.setEditable(false);
 
         jLabel2.setText("Employee ID");
 
-        jTextField2.setEditable(false);
+        employeeId.setEditable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -91,7 +136,7 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
                         .addGap(180, 180, 180)
                         .addComponent(jButton2)
                         .addGap(83, 83, 83)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ok, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,11 +144,11 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(employeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(55, 55, 55)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(employeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -114,14 +159,14 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(employeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(employeeId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(ok)
                     .addComponent(jButton2))
                 .addGap(17, 17, 17))
         );
@@ -141,6 +186,13 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
+        // TODO add your handling code here:
+        EmployeeDashboard frame = new EmployeeDashboard(employee);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_okActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,21 +224,21 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EmployeeRequestedItem().setVisible(true);
+//                new EmployeeRequestedItem().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField employeeId;
+    private javax.swing.JTextField employeeName;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton ok;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

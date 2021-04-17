@@ -5,10 +5,6 @@
  */
 package pms;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -190,72 +186,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
         
-        FileWriter fw;
-        try {
-            fw = new FileWriter("person.txt");
-            
-            for (Employee employee : Driver.getInstance().getEmployees()) {
-                String str;
-                str = String.format("%s;%s;%s;%s;%s;%s\n", employee.getName(),
-                        employee.getId(), employee.getContactNumber(),
-                        employee.getEmail(), employee.getCnic(),
-                        employee.getAddress()
-                );
-
-                fw.write(str);
-            }
-            
-            for (Manager manager : Driver.getInstance().getManagers()) {
-                String str;
-                str = String.format("%s;%s;%s;%s;%s;%s\n", manager.getName(),
-                        manager.getId(), manager.getContactNumber(),
-                        manager.getEmail(), manager.getCnic(),
-                        manager.getAddress()
-                );
-
-                fw.write(str);
-            }
-            
-            
-            fw.close();
-
-        } catch (IOException ex) {
-            System.out.println("Error while writing employee data to file");
-        }
-        
-        /*
-            try {
-            fw = new FileWriter("manager.txt");
-            
-            for (Manager manager : Driver.getInstance().getManagers()) {
-            String str;
-            str = String.format("%s;%s;%s;%s;%s;%s\n", manager.getName(),
-            manager.getId(), manager.getContactNumber(),
-            manager.getEmail(), manager.getCnic(),
-            manager.getAddress());
-            
-            fw.write(str);
-            }
-            
-            fw.close();
-            } catch (IOException ex) {
-            System.out.println("Error while writing manager data to file");
-            }*/
-        
-        try {
-            fw = new FileWriter("items.txt");
-            
-            for (Item item : Driver.getInstance().getItems()) {
-                fw.write(item.getId() + ';' + item.getName() + ';'+ item.getQuantity() + ';'+ 
-                        item.isConsumable() + '\n');
-            }
-            fw.close();
-            
-        } catch (IOException ex) {
-            System.out.println("Failed to save data of the items.");
-//            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        Driver.getInstance().saveData();
         System.exit(0);
     }//GEN-LAST:event_exitActionPerformed
 

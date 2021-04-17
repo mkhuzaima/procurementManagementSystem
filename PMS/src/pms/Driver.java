@@ -120,10 +120,37 @@ public class Driver {
             }
             br.close();
             fr.close();
+//            for(RequestRecord rr : Driver.getInstance().getRequests()) {
+//                System.out.println(rr.getItemId() + "__" + rr.getEmployeeId());
+//            }
             
         } catch (Exception ex) {
             System.out.println("Failed to load Requst data.");
         }
+        
+        try {
+            fr = new FileReader("issuedData.txt");
+            br = new BufferedReader(fr);
+            String line = br.readLine();
+            while (line != null) {
+                IssueRecord ir = new IssueRecord();
+                String [] arr = line.split(";");
+                if (arr.length == 5) {
+                    ir.setManagerId(arr[0]);
+                    ir.setEmployeeId(arr[1]);
+                    ir.setItemId(arr[2]);
+                    ir.setQuantity(arr[3]);
+                    ir.setIssueDate(arr[4]);
+                    Driver.getInstance().addIssueRecord(ir);
+                }
+                
+                line = br.readLine();
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Failed to load Issued data");
+        }
+        
         
         
         LoginForm frame = new LoginForm();
@@ -205,10 +232,30 @@ public class Driver {
                         requestRecord.getQuantity() + ';' +
                         requestRecord.getRequestDate()  + '\n'
                 );
+//                System.out.println(requestRecord.getEmployeeId() + ';' + 
+//                        requestRecord.getItemId() + ';' + 
+//                        requestRecord.getQuantity() + ';' +
+//                        requestRecord.getRequestDate());
             }
             
+            fw.close();
         } catch (Exception ex) {
             System.out.println("Failed to save Requst data.");
+        }
+        
+        try {
+            fw = new FileWriter("issuedData.txt");
+            for (IssueRecord ir : Driver.getInstance().getIssueRecords()) {
+                fw.write(ir.getManagerId() + ';' +
+                        ir.getEmployeeId() + ';' + 
+                        ir.getItemId() + ';' + 
+                        ir.getQuantity() + ';' + 
+                        ir.getIssueDate()  + '\n'
+                );
+            }
+            fw.close();
+        } catch (Exception ex) {
+            System.out.println("Failed to save Issued data.");
         }
         
     }

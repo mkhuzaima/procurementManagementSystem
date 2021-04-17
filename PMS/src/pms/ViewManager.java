@@ -26,9 +26,9 @@ public class ViewManager extends javax.swing.JFrame {
         model.addColumn("Joining Date");
         model.addColumn("Operation");
         model.addColumn("Issued Items");
-        model.addColumn("Pending Requests");
+//        model.addColumn("Pending Requests");
         
-        Object [] obj = new Object[6];
+        Object [] obj = new Object[5];
         for (Manager mn: Driver.getInstance().getManagers()) {
             obj[0] = mn.getId();
             obj[1] = mn.getName();
@@ -36,7 +36,7 @@ public class ViewManager extends javax.swing.JFrame {
             ////////////////////////////////////////////////////
             obj[3] = "Edit/delete";
             obj[4] = mn.getName();
-            obj[5] = mn.getName();
+//            obj[5] = mn.getName();
             model.addRow(obj);
             
         }

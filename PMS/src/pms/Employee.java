@@ -11,6 +11,17 @@ package pms;
  */
 class Employee extends Person {
     
+    private int requestedItems = 0;
+
+    public int getRequestedItems() {
+        return requestedItems;
+    }
+
+    public void setRequestedItems(int requestedItems) {
+        this.requestedItems = requestedItems;
+    }
+    
+    
     private static int number = 0;
     
     public void setId() {

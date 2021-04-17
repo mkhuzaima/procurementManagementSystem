@@ -4,17 +4,34 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author M_Khuzaima
  */
 public class IssueItem extends javax.swing.JFrame {
 
+    private Manager manager;
     /**
      * Creates new form IssueItem
      */
-    public IssueItem() {
+    public IssueItem(Manager manager) {
         initComponents();
+        this.manager = manager;
+        empId.removeAll();
+        for (Employee employee : Driver.getInstance().getEmployees()) {
+            empId.addItem(employee.getId());
+        }
+        empId.setSelectedIndex(-1);
+        
+        itemId.removeAll();
+        for (Item item : Driver.getInstance().getItems()) {
+            itemId.addItem(item.getId());
+        }
+        itemId.setSelectedIndex(-1);
+        
     }
 
     /**
@@ -26,22 +43,23 @@ public class IssueItem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        consumableGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        issue = new javax.swing.JButton();
+        back = new javax.swing.JButton();
+        itemName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        quantity = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        yes = new javax.swing.JRadioButton();
+        no = new javax.swing.JRadioButton();
+        itemId = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        empId = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        empName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,14 +69,24 @@ public class IssueItem extends javax.swing.JFrame {
 
         jLabel3.setText("Item Name");
 
-        jButton1.setText("Request");
-
-        jButton2.setText("Back");
-
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        issue.setText("Issue");
+        issue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                issueActionPerformed(evt);
+            }
+        });
+
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
+        itemName.setEditable(false);
+        itemName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemNameActionPerformed(evt);
             }
         });
 
@@ -66,28 +94,38 @@ public class IssueItem extends javax.swing.JFrame {
 
         jLabel7.setText("Consumable");
 
-        jRadioButton1.setText("Yes");
-        jRadioButton1.setEnabled(false);
+        consumableGroup.add(yes);
+        yes.setText("Yes");
+        yes.setEnabled(false);
 
-        jRadioButton2.setText("No");
-        jRadioButton2.setEnabled(false);
+        consumableGroup.add(no);
+        no.setText("No");
+        no.setEnabled(false);
 
-        jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ITM-1", "ITM-2", "ITM-3" }));
-        jComboBox1.setSelectedIndex(-1);
+        itemId.setEditable(true);
+        itemId.setSelectedIndex(-1);
+        itemId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemIdActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Item ID");
 
-        jComboBox2.setEditable(true);
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ITM-1", "ITM-2", "ITM-3" }));
-        jComboBox2.setSelectedIndex(-1);
+        empId.setEditable(true);
+        empId.setSelectedIndex(-1);
+        empId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empIdActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Employee ID");
 
-        jTextField3.setEditable(false);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        empName.setEditable(false);
+        empName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                empNameActionPerformed(evt);
             }
         });
 
@@ -104,9 +142,9 @@ public class IssueItem extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(116, 116, 116)
-                        .addComponent(jButton2)
+                        .addComponent(back)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton1)))
+                        .addComponent(issue)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(39, Short.MAX_VALUE)
@@ -114,14 +152,14 @@ public class IssueItem extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(77, 77, 77)
-                        .addComponent(jRadioButton1)
+                        .addComponent(yes)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
+                        .addComponent(no))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(empName, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3)
@@ -130,11 +168,11 @@ public class IssueItem extends javax.swing.JFrame {
                                 .addComponent(jLabel5))
                             .addGap(44, 44, 44)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(empId, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(itemName)
+                                    .addComponent(quantity)
+                                    .addComponent(itemId, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
@@ -144,33 +182,33 @@ public class IssueItem extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(empId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(empName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(yes)
+                    .addComponent(no))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(issue)
+                    .addComponent(back))
                 .addGap(16, 16, 16))
         );
 
@@ -188,13 +226,68 @@ public class IssueItem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void itemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_itemNameActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void empNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_empNameActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        ManagerDashboard frame = new ManagerDashboard(manager);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
+
+    private void issueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueActionPerformed
+        // TODO add your handling code here:
+        boolean flag = true;
+        IssueRecord issueRecord = new IssueRecord();
+        if (empId.getSelectedIndex() == -1 || itemId.getSelectedIndex() == -1) {
+            flag = false;
+        }
+        if (!issueRecord.setQuantity(quantity.getText())) {
+            flag = false;
+        }
+        
+        if (flag) {
+            issueRecord.setEmployeeId(empId.getSelectedItem().toString());
+            issueRecord.setItemId(itemId.getSelectedItem().toString());
+            issueRecord.setManagerId(manager.getId());
+            Driver.getInstance().addIssueRecord(issueRecord);
+            JOptionPane.showMessageDialog(this, "Issued Successfully!", "Issued", -1);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please Enter valid Date", "Erroe", JOptionPane.ERROR_MESSAGE);
+        }
+        backActionPerformed(evt);
+    }//GEN-LAST:event_issueActionPerformed
+
+    private void empIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empIdActionPerformed
+        // TODO add your handling code here:
+        if (empId.getSelectedIndex() != -1) {
+            empName.setText(Driver.getInstance().getEmployees().get(
+                    empId.getSelectedIndex()).getName());
+        }
+        else {
+            empName.setText(null);
+        }
+    }//GEN-LAST:event_empIdActionPerformed
+
+    private void itemIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIdActionPerformed
+        // TODO add your handling code here:
+        if (itemId.getSelectedIndex() != -1) {
+            Item item = Driver.getInstance().getItems().get(itemId.getSelectedIndex());
+            itemName.setText(item.getName());
+            yes.setSelected(item.isConsumable());
+            no.setSelected(!item.isConsumable());
+        }
+        else {
+            itemName.setText(null);
+        }
+    }//GEN-LAST:event_itemIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,16 +319,19 @@ public class IssueItem extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IssueItem().setVisible(true);
+//                new IssueItem().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton back;
+    private javax.swing.ButtonGroup consumableGroup;
+    private javax.swing.JComboBox<String> empId;
+    private javax.swing.JTextField empName;
+    private javax.swing.JButton issue;
+    private javax.swing.JComboBox<String> itemId;
+    private javax.swing.JTextField itemName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -244,10 +340,8 @@ public class IssueItem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JRadioButton no;
+    private javax.swing.JTextField quantity;
+    private javax.swing.JRadioButton yes;
     // End of variables declaration//GEN-END:variables
 }

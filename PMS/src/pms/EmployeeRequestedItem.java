@@ -34,20 +34,22 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
         model.addColumn("Delete");
         Object [] obj = new Object[6];
         for (RequestRecord requestRecord : Driver.getInstance().getRequests()) {
-            Item item = null;
-            for (Item itm : Driver.getInstance().getItems()) {
-                if (itm.getId().equals(requestRecord.getItemId())) {
-                    item = itm;
-                    break;
+            if (requestRecord.getEmployeeId().equals(employee.getId())) {
+                Item item = null;
+                for (Item itm : Driver.getInstance().getItems()) {
+                    if (itm.getId().equals(requestRecord.getItemId())) {
+                        item = itm;
+                        break;
+                    }
                 }
+
+                obj[0] = requestRecord.getItemId();
+                obj[1] = item.getName();
+                obj[2] = requestRecord.getRequestDate();
+                obj[3] = requestRecord.getQuantity();
+                obj[4] = item.isConsumable()?"Yes" : "No";
+                obj[5] = "Delete";
             }
-            
-            obj[0] = requestRecord.getItemId();
-            obj[1] = item.getName();
-            obj[2] = requestRecord.getRequestDate();
-            obj[3] = requestRecord.getQuantity();
-            obj[4] = item.isConsumable()?"Yes" : "No";
-            obj[5] = "Delete";
         }
         model.addRow(obj);
         table.setModel(model);

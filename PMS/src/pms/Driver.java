@@ -219,12 +219,14 @@ public class Driver {
     private ArrayList<Employee> employees;
     private ArrayList<Item> items;
     private ArrayList<RequestRecord> requests;
+    private ArrayList<IssueRecord> issueRecords;
     
     private Driver() {
         managers = new ArrayList<>();
         employees = new ArrayList<>();
         items = new ArrayList<>();
         requests = new ArrayList<>();
+        issueRecords = new ArrayList<>();
         administrator = new Administrator();
     }
     
@@ -324,6 +326,21 @@ public class Driver {
             requestRecord.setRequestDate();
         }
         this.requests.add(requestRecord);
+    }
+
+    public ArrayList<IssueRecord> getIssueRecords() {
+        return issueRecords;
+    }
+
+    public void setIssueRecords(ArrayList<IssueRecord> issueRecords) {
+        this.issueRecords = issueRecords;
+    }
+    
+    public void addIssueRecord (IssueRecord issueRecord) {
+        if (issueRecord.getIssueDate() == null) {
+            issueRecord.setIssueDate();
+        }
+        this.issueRecords.add(issueRecord);
     }
     
 }

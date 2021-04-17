@@ -1,1 +1,2 @@
 Khuzaima ;EMP-1;03134544995;mkhuzaimaumair@gmail.com;3510296024967;house
+Manager;MAN-1;03001234561;abc@xyz.com;3510296024961;house

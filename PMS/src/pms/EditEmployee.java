@@ -247,9 +247,20 @@ public class EditEmployee extends javax.swing.JFrame {
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure?", "Sure?", JOptionPane.YES_NO_OPTION);
+        System.out.println(response);
+        if (response != 0) {
+//            System.out.println("response condition is true");
+            return ;
+        }
+        
+        int index = idChooser.getSelectedIndex();
+        if (index == -1) {
+            return ;
+        }
         boolean flag = true;
         
-        Employee employee = new Employee();
+        Employee employee = Driver.getInstance().getEmployees().get(index);
         if (!employee.setName(nameField.getText())) {
 //            System.out.println("name");
             flag = false;
@@ -275,7 +286,7 @@ public class EditEmployee extends javax.swing.JFrame {
         
         if (flag) {
             employee.setGender(male.isSelected()?"Male" : "Female");
-            Driver.getInstance().addEmployee(employee);
+//            Driver.getInstance().addEmployee(employee);
             JOptionPane.showMessageDialog(this, "Employee has been updated Successfully!");
             discardActionPerformed(evt);
         }

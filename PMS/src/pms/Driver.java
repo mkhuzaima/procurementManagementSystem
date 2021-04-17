@@ -142,6 +142,24 @@ public class Driver {
         }
         this.managers.add(manager);
     }
+    
+    public void editManager(int index, Manager manager) {
+//        int index = searchManagerById(id);
+        if (index != -1) 
+            this.managers.set(index, manager);
+    }
+    
+    public int searchManagerById(String id) {
+        int i = 0;
+        for (Manager manager : Driver.getInstance().getManagers()) {
+            if (manager.getId().equals(id)) {
+                return i;
+            }
+            i++;
+        }
+
+        return -1;
+    }
 
     public Administrator getAdministrator() {
         return administrator;

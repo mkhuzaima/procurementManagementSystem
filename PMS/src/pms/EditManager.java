@@ -110,7 +110,26 @@ public class EditManager extends javax.swing.JFrame {
             }
         });
 
-        idChooser.setSelectedIndex(-1);
+        idChooser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                idChooserItemStateChanged(evt);
+            }
+        });
+        idChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idChooserActionPerformed(evt);
+            }
+        });
+        idChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                idChooserPropertyChange(evt);
+            }
+        });
+        idChooser.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
+                idChooserVetoableChange(evt);
+            }
+        });
 
         jLabel9.setText("ID");
 
@@ -192,7 +211,7 @@ public class EditManager extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -246,9 +265,20 @@ public class EditManager extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        boolean flag = true;
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure?", "Sure?", JOptionPane.YES_NO_OPTION);
+        System.out.println(response);
+        if (response != 0) {
+//            System.out.println("response condition is true");
+            return ;
+        }
         
-        Manager mn = new Manager();
+        int index = idChooser.getSelectedIndex();
+        if (index == -1) {
+            return ;
+        }
+        
+        boolean flag = true;
+        Manager mn = Driver.getInstance().getManagers().get(index);
         if (!mn.setName(nameField.getText())) {
 //            System.out.println("name");
             flag = false;
@@ -275,8 +305,11 @@ public class EditManager extends javax.swing.JFrame {
         
         if (flag) {
             mn.setGender(male.isSelected()?"Male" : "Female");
-            Driver.getInstance().addManager(mn);
+            Driver.getInstance().editManager(index, mn);
+//            System.out.println("runnig before update statement");
             JOptionPane.showMessageDialog(this, "Manager has been updated Successfully!");
+       
+            System.out.println(Driver.getInstance().getManagers().get(index).getName() + mn.getCnic());
 
             discardActionPerformed(evt);
         }
@@ -285,6 +318,112 @@ public class EditManager extends javax.swing.JFrame {
         }
 //       System.out.println(mn.getName() + mn.getCnic());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void idChooserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idChooserItemStateChanged
+        // TODO add your handling code here:
+        /*int index = -1;
+        if (idChooser.getSelectedIndex() != -1) {
+            index = Driver.getInstance().searchManagerById(
+                idChooser.getSelectedItem().toString()
+            );
+        }
+        if (index != -1) {
+            Manager manager = Driver.getInstance().getManagers().get(index);
+            nameField.setText(manager.getName());
+            cnicField.setText(manager.getCnic());
+            emailField.setText(manager.getEmail());
+            contactNumberField.setText(manager.getContactNumber());
+            if (manager.getGender() == "male") {
+                male.setSelected(true);
+            }
+            else {
+                female.setSelected(true);
+            }
+            
+            addressArea.setText(manager.getAddress());
+        }*/
+    }//GEN-LAST:event_idChooserItemStateChanged
+
+    private void idChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_idChooserPropertyChange
+        // TODO add your handling code here:
+        /*int index = -1;
+        if (idChooser.getSelectedIndex() != -1) {
+            index = Driver.getInstance().searchManagerById(
+                idChooser.getSelectedItem().toString()
+            );
+        }
+        if (index != -1) {
+            Manager manager = Driver.getInstance().getManagers().get(index);
+            nameField.setText(manager.getName());
+            cnicField.setText(manager.getCnic());
+            emailField.setText(manager.getEmail());
+            contactNumberField.setText(manager.getContactNumber());
+            if (manager.getGender() == "male") {
+                male.setSelected(true);
+            }
+            else {
+                female.setSelected(true);
+            }
+            
+            addressArea.setText(manager.getAddress());
+        }*/
+    }//GEN-LAST:event_idChooserPropertyChange
+
+    private void idChooserVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_idChooserVetoableChange
+        // TODO add your handling code here:
+        /*int index = -1;
+        if (idChooser.getSelectedIndex() != -1) {
+            index = Driver.getInstance().searchManagerById(
+                idChooser.getSelectedItem().toString()
+            );
+        }
+        if (index != -1) {
+            Manager manager = Driver.getInstance().getManagers().get(index);
+            nameField.setText(manager.getName());
+            cnicField.setText(manager.getCnic());
+            emailField.setText(manager.getEmail());
+            contactNumberField.setText(manager.getContactNumber());
+            if (manager.getGender() == "male") {
+                male.setSelected(true);
+            }
+            else {
+                female.setSelected(true);
+            }
+            
+            addressArea.setText(manager.getAddress());
+        }*/
+    }//GEN-LAST:event_idChooserVetoableChange
+
+    private void idChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idChooserActionPerformed
+        // TODO add your handling code here:
+        int index = -1;
+        if (idChooser.getSelectedIndex() != -1) {
+            index = idChooser.getSelectedIndex();
+        }
+        if (index != -1) {
+            Manager manager = Driver.getInstance().getManagers().get(index);
+            nameField.setText(manager.getName());
+            cnicField.setText(manager.getCnic());
+            emailField.setText(manager.getEmail());
+            contactNumberField.setText(manager.getContactNumber());
+            if (manager.getGender() == "male") {
+                male.setSelected(true);
+            }
+            else {
+                female.setSelected(true);
+            }
+            
+            addressArea.setText(manager.getAddress());
+        }
+        else {
+            nameField.setText(null);
+            cnicField.setText(null);
+            emailField.setText(null);
+            contactNumberField.setText(null);
+            genderGroup.clearSelection();
+            addressArea.setText(null);
+        }
+    }//GEN-LAST:event_idChooserActionPerformed
 
     /**
      * @param args the command line arguments

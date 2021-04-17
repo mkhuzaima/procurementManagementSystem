@@ -58,11 +58,11 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="147" max="-2" attributes="0"/>
+                          <Component id="name" min="-2" pref="147" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="147" max="-2" attributes="0"/>
+                          <Component id="id" min="-2" pref="147" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="58" max="32767" attributes="0"/>
@@ -77,9 +77,9 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="name" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="id" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane4" min="-2" pref="137" max="-2" attributes="0"/>
@@ -109,7 +109,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable4">
+            <Component class="javax.swing.JTable" name="table">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="14" style="0"/>
@@ -203,7 +203,7 @@
             <Property name="text" type="java.lang.String" value="Manager Name"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="name">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
@@ -213,7 +213,7 @@
             <Property name="text" type="java.lang.String" value="Manager ID"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="id">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>

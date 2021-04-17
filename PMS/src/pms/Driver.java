@@ -384,6 +384,16 @@ public class Driver {
     }
     
     public void addIssueRecord (IssueRecord issueRecord) {
+        for (Item it: Driver.getInstance().getItems()) {
+            if (it.getId().equals(issueRecord.getItemId())) {
+                int newQuantity = it.getQuantity() - issueRecord.getQuantity();
+                if (newQuantity < 0) {
+                    newQuantity = 0;
+                }
+                it.setQuantity(String.valueOf(newQuantity));
+                break;
+            }
+        }
         if (issueRecord.getIssueDate() == null) {
             issueRecord.setIssueDate();
         }

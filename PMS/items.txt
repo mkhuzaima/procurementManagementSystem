@@ -1,1 +1,1 @@
-ITM-1;corei3;10;false
+ITM-1;corei3;6;false

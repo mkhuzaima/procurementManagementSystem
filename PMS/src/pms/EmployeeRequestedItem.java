@@ -49,9 +49,9 @@ public class EmployeeRequestedItem extends javax.swing.JFrame {
                 obj[3] = requestRecord.getQuantity();
                 obj[4] = item.isConsumable()?"Yes" : "No";
                 obj[5] = "Delete";
+                model.addRow(obj);
             }
         }
-        model.addRow(obj);
         table.setModel(model);
     }
     

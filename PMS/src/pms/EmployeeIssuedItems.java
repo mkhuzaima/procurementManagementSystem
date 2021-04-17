@@ -4,17 +4,51 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author M_Khuzaima
  */
 public class EmployeeIssuedItems extends javax.swing.JFrame {
 
+    private Employee employee;
+    private DefaultTableModel model;
     /**
      * Creates new form EmployeeIssuedItems
      */
-    public EmployeeIssuedItems() {
+    public EmployeeIssuedItems(Employee employee) {
         initComponents();
+        this.employee = employee;
+        name.setText(employee.getName());
+        id.setText(employee.getId());
+        model = new DefaultTableModel();
+        model.addColumn("Item ID");
+        model.addColumn("Item Name");
+        model.addColumn("Date of issue");
+        model.addColumn("Issue by");
+        model.addColumn("Quantities");
+        
+        Object [] obj = new Object[5];
+        for (IssueRecord ir: Driver.getInstance().getIssueRecords()) {
+            if (!ir.getEmployeeId().equals(employee.getId()))
+                continue;
+            Item item = null;
+            for (Item it: Driver.getInstance().getItems()) {
+                if (it.getId().equals(ir.getItemId())) {
+                    item = it;
+                    break;
+                }
+            }
+            obj[0] = ir.getItemId();
+            obj[1] = item.getName();
+            obj[2] = ir.getIssueDate();
+            obj[3] = ir.getManagerId();
+            obj[4] = ir.getQuantity();
+            model.addRow(obj);
+        }
+        table.setModel(model);
     }
 
     /**
@@ -29,21 +63,21 @@ public class EmployeeIssuedItems extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        table = new javax.swing.JTable();
+        ok = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        id = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel5.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel5.setText("Issued Items");
 
-        jTable4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        table.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"ITM-1", "Notebook", "Jan 1, 2021", "Ahmad", "5"},
                 {null, null, null, null, null},
@@ -62,21 +96,26 @@ public class EmployeeIssuedItems extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable4.setName(""); // NOI18N
-        jTable4.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable4);
+        table.setName(""); // NOI18N
+        table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(table);
 
-        jButton1.setText("OK");
+        ok.setText("OK");
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Export to PDF");
 
         jLabel1.setText("Employee Name");
 
-        jTextField1.setEditable(false);
+        name.setEditable(false);
 
         jLabel2.setText("Employee ID");
 
-        jTextField2.setEditable(false);
+        id.setEditable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -88,7 +127,7 @@ public class EmployeeIssuedItems extends javax.swing.JFrame {
                         .addGap(180, 180, 180)
                         .addComponent(jButton2)
                         .addGap(83, 83, 83)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ok, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,11 +135,11 @@ public class EmployeeIssuedItems extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(55, 55, 55)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -116,15 +155,15 @@ public class EmployeeIssuedItems extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(ok)
                     .addComponent(jButton2))
                 .addGap(17, 17, 17))
         );
@@ -144,6 +183,13 @@ public class EmployeeIssuedItems extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
+        // TODO add your handling code here:
+        EmployeeDashboard frame = new EmployeeDashboard(employee);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_okActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,21 +221,21 @@ public class EmployeeIssuedItems extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EmployeeIssuedItems().setVisible(true);
+//                new EmployeeIssuedItems().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField id;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField name;
+    private javax.swing.JButton ok;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

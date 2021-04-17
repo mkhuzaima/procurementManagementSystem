@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package pms;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author M_Khuzaima
@@ -11,12 +14,41 @@ package pms;
 public class ManagerIssuedItem extends javax.swing.JFrame {
 
     private Manager manager;
+    private DefaultTableModel model;
     /**
      * Creates new form ManagerIssuedItem
      */
     public ManagerIssuedItem(Manager manager) {
         initComponents();
         this.manager = manager;
+        name.setText(manager.getName());
+        id.setText(manager.getId());
+        model = new DefaultTableModel();
+        model.addColumn("Item ID");
+        model.addColumn("Item Name");
+        model.addColumn("Date of issue");
+        model.addColumn("Issue to");
+        model.addColumn("Quantities");
+        
+        Object [] obj = new Object[5];
+        for (IssueRecord ir: Driver.getInstance().getIssueRecords()) {
+            if (!ir.getManagerId().equals(manager.getId()))
+                continue;
+            Item item = null;
+            for (Item it: Driver.getInstance().getItems()) {
+                if (it.getId().equals(ir.getItemId())) {
+                    item = it;
+                    break;
+                }
+            }
+            obj[0] = ir.getItemId();
+            obj[1] = item.getName();
+            obj[2] = ir.getIssueDate();
+            obj[3] = ir.getEmployeeId();
+            obj[4] = ir.getQuantity();
+            model.addRow(obj);
+        }
+        table.setModel(model);
     }
 
     /**
@@ -31,21 +63,21 @@ public class ManagerIssuedItem extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        id = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel5.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel5.setText("Issued Items");
 
-        jTable4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        table.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"EMP-1", "Notebook", "Jan 1, 2021", "Ahmad", "5"},
                 {null, null, null, null, null},
@@ -64,9 +96,9 @@ public class ManagerIssuedItem extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable4.setName(""); // NOI18N
-        jTable4.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable4);
+        table.setName(""); // NOI18N
+        table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(table);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -79,11 +111,11 @@ public class ManagerIssuedItem extends javax.swing.JFrame {
 
         jLabel1.setText("Manager Name");
 
-        jTextField1.setEditable(false);
+        name.setEditable(false);
 
         jLabel2.setText("Manager ID");
 
-        jTextField2.setEditable(false);
+        id.setEditable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -104,11 +136,11 @@ public class ManagerIssuedItem extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -119,9 +151,9 @@ public class ManagerIssuedItem extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -190,6 +222,7 @@ public class ManagerIssuedItem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -197,8 +230,7 @@ public class ManagerIssuedItem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField name;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
